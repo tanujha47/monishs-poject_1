@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login | StudyHub</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+
+</head>
+
+<body class="auth-page">
+
+    <!-- ================= NAVBAR ================= -->
+
+    <header class="navbar">
+
+        <a href="index.html" class="logo">
+            📚 Study<span>Hub</span>
+        </a>
+
+        <div class="nav-buttons">
+
+            <a href="index.html" class="login-link">
+                ← Back Home
+            </a>
+
+        </div>
+
+    </header>
+
+
+    <!-- ================= LOGIN ================= -->
+
+    <main class="auth-container">
+
+        <div class="auth-card">
+
+            <div class="auth-icon">
+                🔐
+            </div>
+
+            <h1>
+                Welcome Back!
+            </h1>
+
+            <p class="auth-subtitle">
+                Login to access your StudyHub account.
+            </p>
+
+
+            <!-- ================= LOGIN FORM ================= -->
+
+            <form id="loginForm">
+
+                <div class="form-group">
+
+                    <label for="email">
+                        Email Address
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        placeholder="Enter your email"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="password">
+                        Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="password"
+                        placeholder="Enter your password"
+                        required
+                    >
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="btn btn-primary full-btn"
+                >
+                    Login
+                </button>
+
+            </form>
+
+
+            <!-- ================= REGISTER LINK ================= -->
+
+            <p class="auth-bottom">
+
+                Don't have an account?
+
+                <a href="register.html">
+                    Create Account
+                </a>
+
+            </p>
+
+        </div>
+
+    </main>
+
+
+    <!-- ================= JAVASCRIPT ================= -->
+
+    <script>
+
+        document
+            .getElementById("loginForm")
+            .addEventListener(
+                "submit",
+                async function (event) {
+
+                    event.preventDefault();
+
+
+                    const email =
+                        document.getElementById("email").value;
+
+                    const password =
+                        document.getElementById("password").value;
+
+
+                    try {
+
+                        const response =
+                            await fetch(
+                                "/api/login",
+                                {
+                                    method: "POST",
+
+                                    headers: {
+                                        "Content-Type":
+                                            "application/json"
+                                    },
+
+                                    body: JSON.stringify({
+                                        email: email,
+                                        password: password
+                                    })
+                                }
+                            );
+
+
+                        const data =
+                            await response.json();
+
+
+                        if (response.ok) {
+
+                            alert(data.message);
+
+
+                            localStorage.setItem(
+                                "studyhubUser",
+                                JSON.stringify(data.user)
+                            );
+
+
+                            window.location.href =
+                                "dashboard.html";
+
+                        } else {
+
+                            alert(data.message);
+
+                        }
+
+
+                    } catch (error) {
+
+                        console.error(error);
+
+                        alert(
+                            "Unable to connect to the server."
+                        );
+
+                    }
+
+                }
+            );
+
+    </script>
+
+</body>
+
+</html>

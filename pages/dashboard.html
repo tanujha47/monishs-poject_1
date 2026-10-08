@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard | StudyHub</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+
+</head>
+
+<body class="dashboard-page">
+
+
+    <!-- ================= DASHBOARD NAVIGATION ================= -->
+
+    <header class="dashboard-navbar">
+
+        <a href="index.html" class="logo">
+            📚 Study<span>Hub</span>
+        </a>
+
+
+        <div class="dashboard-user">
+
+            <div class="user-avatar" id="userAvatar">
+                S
+            </div>
+
+            <div class="user-info">
+
+                <strong id="userName">
+                    Student
+                </strong>
+
+                <span id="userEmail">
+                    Student Account
+                </span>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- ================= DASHBOARD LAYOUT ================= -->
+
+    <main class="dashboard-layout">
+
+
+        <!-- ================= SIDEBAR ================= -->
+
+        <aside class="dashboard-sidebar">
+
+            <nav>
+
+                <a
+                    href="dashboard.html"
+                    class="sidebar-link active"
+                >
+                    <span>🏠</span>
+                    Dashboard
+                </a>
+
+
+                <a
+                    href="notes.html"
+                    class="sidebar-link"
+                >
+                    <span>📚</span>
+                    Browse Notes
+                </a>
+
+
+                <a
+                    href="upload.html"
+                    class="sidebar-link"
+                >
+                    <span>📤</span>
+                    Upload Notes
+                </a>
+
+
+                <a
+                    href="notes.html"
+                    class="sidebar-link"
+                >
+                    <span>📁</span>
+                    My Notes
+                </a>
+
+
+                <a
+                    href="#"
+                    class="sidebar-link"
+                    onclick="showProfileMessage(event)"
+                >
+                    <span>👤</span>
+                    My Profile
+                </a>
+
+            </nav>
+
+
+            <!-- ================= SIDEBAR BOTTOM ================= -->
+
+            <div class="sidebar-bottom">
+
+                <a
+                    href="#"
+                    class="sidebar-link"
+                    id="logoutBtn"
+                >
+                    <span>🚪</span>
+                    Logout
+                </a>
+
+            </div>
+
+        </aside>
+
+
+        <!-- ================= MAIN DASHBOARD ================= -->
+
+        <section class="dashboard-content">
+
+
+            <!-- ================= WELCOME ================= -->
+
+            <div class="dashboard-welcome">
+
+                <div>
+
+                    <p class="eyebrow">
+                        STUDENT DASHBOARD
+                    </p>
+
+                    <h1 id="welcomeMessage">
+                        Welcome back! 👋
+                    </h1>
+
+                    <p>
+                        Here's what's happening with your
+                        StudyHub account.
+                    </p>
+
+                </div>
+
+
+                <a
+                    href="upload.html"
+                    class="btn btn-primary"
+                >
+                    + Upload Notes
+                </a>
+
+            </div>
+
+
+            <!-- ================= STATISTICS ================= -->
+
+            <div class="dashboard-stats">
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon blue">
+                        📚
+                    </div>
+
+                    <div>
+
+                        <span>
+                            Available Notes
+                        </span>
+
+                        <strong>
+                            500+
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon green">
+                        📤
+                    </div>
+
+                    <div>
+
+                        <span>
+                            My Uploads
+                        </span>
+
+                        <strong>
+                            8
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon orange">
+                        ⬇️
+                    </div>
+
+                    <div>
+
+                        <span>
+                            Downloads
+                        </span>
+
+                        <strong>
+                            24
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon purple">
+                        📖
+                    </div>
+
+                    <div>
+
+                        <span>
+                            Subjects
+                        </span>
+
+                        <strong>
+                            20+
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+            <!-- ================= RECENT NOTES ================= -->
+
+            <div class="dashboard-section">
+
+
+                <div class="dashboard-section-header">
+
+                    <div>
+
+                        <h2>
+                            Recent Notes
+                        </h2>
+
+                        <p>
+                            Recently added study materials
+                        </p>
+
+                    </div>
+
+                    <a href="notes.html">
+                        View All →
+                    </a>
+
+                </div>
+
+
+                <div class="dashboard-notes">
+
+
+                    <div class="dashboard-note">
+
+                        <div class="dashboard-note-icon pdf">
+                            PDF
+                        </div>
+
+                        <div class="dashboard-note-content">
+
+                            <span>
+                                Cloud Computing
+                            </span>
+
+                            <h3>
+                                Unit II — IaaS
+                            </h3>
+
+                            <p>
+                                Uploaded recently
+                            </p>
+
+                        </div>
+
+                        <a href="notes.html">
+                            View
+                        </a>
+
+                    </div>
+
+
+                    <div class="dashboard-note">
+
+                        <div class="dashboard-note-icon docx">
+                            DOC
+                        </div>
+
+                        <div class="dashboard-note-content">
+
+                            <span>
+                                Full Stack Development
+                            </span>
+
+                            <h3>
+                                NodeJS Introduction
+                            </h3>
+
+                            <p>
+                                Uploaded recently
+                            </p>
+
+                        </div>
+
+                        <a href="notes.html">
+                            View
+                        </a>
+
+                    </div>
+
+
+                    <div class="dashboard-note">
+
+                        <div class="dashboard-note-icon ppt">
+                            PPT
+                        </div>
+
+                        <div class="dashboard-note-content">
+
+                            <span>
+                                UI / UX
+                            </span>
+
+                            <h3>
+                                UX Design Principles
+                            </h3>
+
+                            <p>
+                                Uploaded recently
+                            </p>
+
+                        </div>
+
+                        <a href="notes.html">
+                            View
+                        </a>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= QUICK ACTIONS ================= -->
+
+            <div class="dashboard-section">
+
+
+                <div class="dashboard-section-header">
+
+                    <div>
+
+                        <h2>
+                            Quick Actions
+                        </h2>
+
+                    </div>
+
+                </div>
+
+
+                <div class="quick-actions">
+
+
+                    <a
+                        href="notes.html"
+                        class="quick-action"
+                    >
+
+                        <span>
+                            🔍
+                        </span>
+
+                        <div>
+
+                            <strong>
+                                Find Notes
+                            </strong>
+
+                            <p>
+                                Search study materials
+                            </p>
+
+                        </div>
+
+                    </a>
+
+
+                    <a
+                        href="upload.html"
+                        class="quick-action"
+                    >
+
+                        <span>
+                            📤
+                        </span>
+
+                        <div>
+
+                            <strong>
+                                Share Notes
+                            </strong>
+
+                            <p>
+                                Upload your study material
+                            </p>
+
+                        </div>
+
+                    </a>
+
+
+                    <a
+                        href="#"
+                        class="quick-action"
+                        onclick="showProfileMessage(event)"
+                    >
+
+                        <span>
+                            👤
+                        </span>
+
+                        <div>
+
+                            <strong>
+                                My Profile
+                            </strong>
+
+                            <p>
+                                Manage your account
+                            </p>
+
+                        </div>
+
+                    </a>
+
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+    </main>
+
+
+    <!-- ================= JAVASCRIPT ================= -->
+
+    <script>
+
+
+        // ===============================
+        // GET LOGGED-IN USER
+        // ===============================
+
+        const userData =
+            localStorage.getItem("studyhubUser");
+
+
+        if (!userData) {
+
+            window.location.href =
+                "login.html";
+
+        } else {
+
+            const user =
+                JSON.parse(userData);
+
+
+            // Show user name
+
+            document.getElementById(
+                "userName"
+            ).textContent =
+                user.full_name;
+
+
+            // Show user email
+
+            document.getElementById(
+                "userEmail"
+            ).textContent =
+                user.email;
+
+
+            // Show first letter of name
+
+            document.getElementById(
+                "userAvatar"
+            ).textContent =
+                user.full_name
+                    .charAt(0)
+                    .toUpperCase();
+
+
+            // Welcome message
+
+            document.getElementById(
+                "welcomeMessage"
+            ).textContent =
+                "Welcome back, " +
+                user.full_name +
+                "! 👋";
+
+        }
+
+
+        // ===============================
+        // LOGOUT
+        // ===============================
+
+        document
+            .getElementById("logoutBtn")
+            .addEventListener(
+                "click",
+                function (event) {
+
+                    event.preventDefault();
+
+
+                    localStorage.removeItem(
+                        "studyhubUser"
+                    );
+
+
+                    window.location.href =
+                        "login.html";
+
+                }
+            );
+
+
+        // ===============================
+        // PROFILE MESSAGE
+        // ===============================
+
+        function showProfileMessage(event) {
+
+            event.preventDefault();
+
+            alert(
+                "My Profile feature will be added soon."
+            );
+
+        }
+
+    </script>
+
+
+</body>
+
+</html>

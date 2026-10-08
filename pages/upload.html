@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Upload Notes | StudyHub</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <header class="navbar">
+
+        <a href="index.html" class="logo">
+            📚 Study<span>Hub</span>
+        </a>
+
+        <nav class="nav-links">
+
+            <a href="index.html">
+                Home
+            </a>
+
+            <a href="notes.html">
+                Notes
+            </a>
+
+            <a href="upload.html" class="active">
+                Upload
+            </a>
+
+            <a href="about.html">
+                About
+            </a>
+
+            <a href="contact.html">
+                Contact
+            </a>
+
+        </nav>
+
+    </header>
+
+
+    <!-- Upload Section -->
+    <main>
+
+        <section class="upload-page">
+
+            <div class="upload-heading">
+
+                <p class="eyebrow">
+                    SHARE KNOWLEDGE
+                </p>
+
+                <h1>
+                    Upload Study Material
+                </h1>
+
+                <p>
+                    Share useful study resources with your
+                    fellow students.
+                </p>
+
+            </div>
+
+
+            <div class="upload-layout">
+
+
+                <!-- Upload Form -->
+                <div class="upload-card">
+
+                    <form id="uploadForm">
+
+
+                        <!-- Title -->
+                        <div class="form-group">
+
+                            <label for="noteTitle">
+                                Note Title
+                            </label>
+
+                            <input
+                                type="text"
+                                id="noteTitle"
+                                placeholder="e.g. Cloud Computing Unit 1"
+                                required
+                            >
+
+                        </div>
+
+
+                        <!-- Subject -->
+                        <div class="form-group">
+
+                            <label for="subject">
+                                Subject
+                            </label>
+
+                            <select id="subject" required>
+
+                                <option value="">
+                                    Select Subject
+                                </option>
+
+                                <option value="Cloud Computing">
+                                    Cloud Computing
+                                </option>
+
+                                <option value="Full Stack Development">
+                                    Full Stack Development
+                                </option>
+
+                                <option value="UI / UX">
+                                    UI / UX
+                                </option>
+
+                                <option value="Internet Technologies">
+                                    Internet Technologies
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <!-- Description -->
+                        <div class="form-group">
+
+                            <label for="description">
+                                Description
+                            </label>
+
+                            <textarea
+                                id="description"
+                                rows="5"
+                                placeholder="Briefly describe what this study material contains..."
+                            ></textarea>
+
+                        </div>
+
+
+                        <!-- File Upload -->
+                        <div class="form-group">
+
+                            <label for="noteFile">
+                                Study Material
+                            </label>
+
+                            <div class="file-upload">
+
+                                <input
+                                    type="file"
+                                    id="noteFile"
+                                    accept=".pdf,.doc,.docx,.ppt,.pptx"
+                                    required
+                                >
+
+                                <div class="file-upload-content">
+
+                                    <div class="upload-icon">
+                                        ☁️
+                                    </div>
+
+                                    <h3>
+                                        Choose your file
+                                    </h3>
+
+                                    <p>
+                                        PDF, DOC, DOCX, PPT or PPTX
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Upload Button -->
+                        <button
+                            type="submit"
+                            class="btn btn-primary upload-button"
+                        >
+                            Upload Study Material ↑
+                        </button>
+
+
+                    </form>
+
+                </div>
+
+
+                <!-- Upload Information -->
+                <div class="upload-info">
+
+                    <div class="info-card">
+
+                        <div class="info-icon">
+                            🔒
+                        </div>
+
+                        <h3>
+                            Safe & Secure
+                        </h3>
+
+                        <p>
+                            Your study materials will be securely
+                            stored using cloud storage.
+                        </p>
+
+                    </div>
+
+
+                    <div class="info-card">
+
+                        <div class="info-icon">
+                            📚
+                        </div>
+
+                        <h3>
+                            Help Other Students
+                        </h3>
+
+                        <p>
+                            Share useful resources and help your
+                            classmates learn more effectively.
+                        </p>
+
+                    </div>
+
+
+                    <div class="info-card">
+
+                        <div class="info-icon">
+                            ✅
+                        </div>
+
+                        <h3>
+                            Supported Files
+                        </h3>
+
+                        <p>
+                            Upload PDF, Word documents and
+                            PowerPoint presentations.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- Footer -->
+    <footer>
+
+        <div class="footer-content">
+
+            <div>
+
+                <a href="index.html" class="logo">
+                    📚 Study<span>Hub</span>
+                </a>
+
+                <p>
+                    Learn. Share. Grow Together.
+                </p>
+
+            </div>
+
+
+            <div>
+
+                <h3>
+                    Quick Links
+                </h3>
+
+                <a href="index.html">
+                    Home
+                </a>
+
+                <a href="notes.html">
+                    Notes
+                </a>
+
+                <a href="upload.html">
+                    Upload
+                </a>
+
+                <a href="about.html">
+                    About
+                </a>
+
+                <a href="contact.html">
+                    Contact
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <div class="copyright">
+
+            © 2026 StudyHub. All Rights Reserved.
+
+        </div>
+
+    </footer>
+
+
+    <!-- Upload JavaScript -->
+    <script>
+
+        document
+            .getElementById("uploadForm")
+            .addEventListener("submit", async function (event) {
+
+                event.preventDefault();
+
+
+                // Check logged-in user
+                const userData =
+                    localStorage.getItem("studyhubUser");
+
+
+                if (!userData) {
+
+                    alert("Please login before uploading notes.");
+
+                    window.location.href = "login.html";
+
+                    return;
+
+                }
+
+
+                const user = JSON.parse(userData);
+
+
+                // Get form values
+                const title =
+                    document.getElementById("noteTitle").value;
+
+                const subject =
+                    document.getElementById("subject").value;
+
+                const description =
+                    document.getElementById("description").value;
+
+                const file =
+                    document.getElementById("noteFile").files[0];
+
+
+                if (!file) {
+
+                    alert("Please select a file.");
+
+                    return;
+
+                }
+
+
+                // Create form data
+                const formData = new FormData();
+
+                formData.append("user_id", user.id);
+
+                formData.append("title", title);
+
+                formData.append("subject", subject);
+
+                formData.append("description", description);
+
+                formData.append("file", file);
+
+
+                try {
+
+                    const response = await fetch(
+                        "/api/upload",
+                        {
+                            method: "POST",
+                            body: formData
+                        }
+                    );
+
+
+                    const data = await response.json();
+
+
+                    if (response.ok) {
+
+                        alert(data.message);
+
+                        document
+                            .getElementById("uploadForm")
+                            .reset();
+
+                        window.location.href =
+                            "notes.html";
+
+                    } else {
+
+                        alert(data.message);
+
+                    }
+
+
+                } catch (error) {
+
+                    console.error(
+                        "Upload error:",
+                        error
+                    );
+
+                    alert(
+                        "Unable to upload the file. Please try again."
+                    );
+
+                }
+
+            });
+
+    </script>
+
+</body>
+
+</html>

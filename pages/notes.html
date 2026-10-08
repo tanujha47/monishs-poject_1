@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>StudyHub | Notes Library</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+
+</head>
+
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+
+    <header class="navbar">
+
+        <a href="index.html" class="logo">
+            📚 Study<span>Hub</span>
+        </a>
+
+        <nav class="nav-links">
+
+            <a href="index.html">
+                Home
+            </a>
+
+            <a href="notes.html" class="active">
+                Notes
+            </a>
+
+            <a href="upload.html">
+                Upload
+            </a>
+
+            <a href="about.html">
+                About
+            </a>
+
+            <a href="contact.html">
+                Contact
+            </a>
+
+        </nav>
+
+    </header>
+
+
+    <!-- ================= NOTES HEADER ================= -->
+
+    <section class="page-header">
+
+        <h1>Study Notes Library</h1>
+
+        <p>
+            Browse and discover useful study materials shared by students.
+        </p>
+
+    </section>
+
+
+    <!-- ================= SEARCH & FILTER ================= -->
+
+    <section class="notes-controls">
+
+        <input
+            type="text"
+            id="searchInput"
+            placeholder="Search notes..."
+        >
+
+        <select id="subjectFilter">
+
+            <option value="all">
+                All Subjects
+            </option>
+
+            <option value="Full Stack Development">
+                Full Stack Development
+            </option>
+
+            <option value="Cloud Computing">
+                Cloud Computing
+            </option>
+
+            <option value="UI / UX">
+                UI / UX
+            </option>
+
+            <option value="Internet Technologies">
+                Internet Technologies
+            </option>
+
+        </select>
+
+    </section>
+
+
+    <!-- ================= NOTES CONTAINER ================= -->
+
+    <main class="notes-container">
+
+        <div id="notesGrid" class="notes-grid">
+
+            <p id="loadingMessage">
+                Loading notes...
+            </p>
+
+        </div>
+
+    </main>
+
+
+    <!-- ================= EDIT NOTE MODAL ================= -->
+
+    <div
+        id="editModal"
+        class="edit-modal"
+        style="display: none;"
+    >
+
+        <div class="edit-modal-content">
+
+            <h2>Edit Study Note</h2>
+
+            <form id="editForm">
+
+                <input
+                    type="hidden"
+                    id="editNoteId"
+                >
+
+
+                <label for="editTitle">
+                    Note Title
+                </label>
+
+                <input
+                    type="text"
+                    id="editTitle"
+                    required
+                >
+
+
+                <label for="editSubject">
+                    Subject
+                </label>
+
+                <select
+                    id="editSubject"
+                    required
+                >
+
+                    <option value="Full Stack Development">
+                        Full Stack Development
+                    </option>
+
+                    <option value="Cloud Computing">
+                        Cloud Computing
+                    </option>
+
+                    <option value="UI / UX">
+                        UI / UX
+                    </option>
+
+                    <option value="Internet Technologies">
+                        Internet Technologies
+                    </option>
+
+                </select>
+
+
+                <label for="editDescription">
+                    Description
+                </label>
+
+                <textarea
+                    id="editDescription"
+                    rows="4"
+                ></textarea>
+
+
+                <div class="edit-actions">
+
+                    <button
+                        type="submit"
+                        class="save-btn"
+                    >
+                        Save Changes
+                    </button>
+
+                    <button
+                        type="button"
+                        class="cancel-btn"
+                        onclick="closeEditModal()"
+                    >
+                        Cancel
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer class="footer">
+
+        <div class="footer-content">
+
+            <div class="footer-section">
+
+                <h3>📚 StudyHub</h3>
+
+                <p>
+                    A study notes sharing portal created
+                    for students, by students.
+                </p>
+
+            </div>
+
+
+            <div class="footer-section">
+
+                <h3>Quick Links</h3>
+
+                <a href="index.html">
+                    Home
+                </a>
+
+                <a href="notes.html">
+                    Notes
+                </a>
+
+                <a href="upload.html">
+                    Upload
+                </a>
+
+                <a href="about.html">
+                    About
+                </a>
+
+                <a href="contact.html">
+                    Contact
+                </a>
+
+            </div>
+
+
+            <div class="footer-section">
+
+                <h3>StudyHub</h3>
+
+                <p>
+                    Share knowledge. Learn together.
+                    Grow together.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="footer-bottom">
+
+            <p>
+                © 2026 StudyHub. Built for students, by students.
+            </p>
+
+        </div>
+
+    </footer>
+
+
+    <!-- ================= JAVASCRIPT ================= -->
+
+    <script>
+
+        let allNotes = [];
+
+
+        // ===============================
+        // LOAD NOTES
+        // ===============================
+
+        async function loadNotes() {
+
+            const notesGrid =
+                document.getElementById("notesGrid");
+
+            try {
+
+                const response =
+                    await fetch("/api/notes");
+
+                const notes =
+                    await response.json();
+
+                allNotes = notes;
+
+                displayNotes(allNotes);
+
+            } catch (error) {
+
+                console.error(
+                    "Error loading notes:",
+                    error
+                );
+
+                notesGrid.innerHTML = `
+                    <p>
+                        Unable to load notes.
+                        Please make sure the server is running.
+                    </p>
+                `;
+
+            }
+
+        }
+
+
+        // ===============================
+        // DISPLAY NOTES
+        // ===============================
+
+        function displayNotes(notes) {
+
+            const notesGrid =
+                document.getElementById("notesGrid");
+
+            notesGrid.innerHTML = "";
+
+
+            if (notes.length === 0) {
+
+                notesGrid.innerHTML = `
+                    <div class="no-notes">
+
+                        <h3>
+                            No notes available yet 📚
+                        </h3>
+
+                        <p>
+                            Be the first student to upload
+                            study material!
+                        </p>
+
+                        <a href="upload.html">
+                            Upload Notes
+                        </a>
+
+                    </div>
+                `;
+
+                return;
+
+            }
+
+
+            notes.forEach(note => {
+
+                const card =
+                    document.createElement("div");
+
+                card.className = "note-card";
+
+
+                card.innerHTML = `
+
+                    <div class="note-icon">
+                        📚
+                    </div>
+
+                    <div class="note-content">
+
+                        <h3>
+                            ${escapeHTML(note.title)}
+                        </h3>
+
+                        <p class="note-subject">
+                            ${escapeHTML(note.subject)}
+                        </p>
+
+                        <p class="note-description">
+                            ${escapeHTML(
+                                note.description ||
+                                "No description available."
+                            )}
+                        </p>
+
+                        <p class="note-uploader">
+
+                            Uploaded by:
+
+                            <strong>
+                                ${escapeHTML(note.uploaded_by)}
+                            </strong>
+
+                        </p>
+
+                        <p class="note-file">
+                            📄 ${escapeHTML(note.file_name)}
+                        </p>
+
+                        <p class="note-downloads">
+
+                            Downloads:
+                            ${note.downloads || 0}
+
+                        </p>
+
+                    </div>
+
+
+                    <div class="note-actions">
+
+                        <button
+                            class="download-btn"
+                            onclick="downloadNote(${note.id})"
+                        >
+                            Download
+                        </button>
+
+
+                        <button
+                            class="edit-btn"
+                            onclick="openEditModal(${note.id})"
+                        >
+                            Edit
+                        </button>
+
+
+                        <button
+                            class="delete-btn"
+                            onclick="deleteNote(${note.id})"
+                        >
+                            Delete
+                        </button>
+
+                    </div>
+
+                `;
+
+
+                notesGrid.appendChild(card);
+
+            });
+
+        }
+
+
+        // ===============================
+        // SEARCH
+        // ===============================
+
+        document
+            .getElementById("searchInput")
+            .addEventListener(
+                "input",
+                filterNotes
+            );
+
+
+        // ===============================
+        // SUBJECT FILTER
+        // ===============================
+
+        document
+            .getElementById("subjectFilter")
+            .addEventListener(
+                "change",
+                filterNotes
+            );
+
+
+        function filterNotes() {
+
+            const searchText =
+                document
+                    .getElementById("searchInput")
+                    .value
+                    .toLowerCase();
+
+
+            const selectedSubject =
+                document
+                    .getElementById("subjectFilter")
+                    .value;
+
+
+            const filteredNotes =
+                allNotes.filter(note => {
+
+                    const matchesSearch =
+
+                        note.title
+                            .toLowerCase()
+                            .includes(searchText)
+
+                        ||
+
+                        note.subject
+                            .toLowerCase()
+                            .includes(searchText);
+
+
+                    const matchesSubject =
+
+                        selectedSubject === "all"
+
+                        ||
+
+                        note.subject ===
+                        selectedSubject;
+
+
+                    return (
+                        matchesSearch &&
+                        matchesSubject
+                    );
+
+                });
+
+
+            displayNotes(filteredNotes);
+
+        }
+
+
+        // ===============================
+        // DOWNLOAD NOTE
+        // ===============================
+
+        function downloadNote(noteId) {
+
+            const note =
+                allNotes.find(
+                    item => item.id === noteId
+                );
+
+
+            if (!note) {
+
+                alert("Note not found.");
+
+                return;
+
+            }
+
+
+            if (!note.blob_name) {
+
+                alert(
+                    "File information is not available."
+                );
+
+                return;
+
+            }
+
+
+            const downloadLink =
+                document.createElement("a");
+
+
+            downloadLink.href =
+                "/uploads/" +
+                encodeURIComponent(note.blob_name);
+
+
+            downloadLink.download =
+                note.file_name;
+
+
+            document.body.appendChild(
+                downloadLink
+            );
+
+
+            downloadLink.click();
+
+
+            document.body.removeChild(
+                downloadLink
+            );
+
+        }
+
+
+        // ===============================
+        // OPEN EDIT MODAL
+        // ===============================
+
+        function openEditModal(noteId) {
+
+            const note =
+                allNotes.find(
+                    item => item.id === noteId
+                );
+
+
+            if (!note) {
+
+                alert("Note not found.");
+
+                return;
+
+            }
+
+
+            document.getElementById(
+                "editNoteId"
+            ).value = note.id;
+
+
+            document.getElementById(
+                "editTitle"
+            ).value = note.title;
+
+
+            document.getElementById(
+                "editSubject"
+            ).value = note.subject;
+
+
+            document.getElementById(
+                "editDescription"
+            ).value = note.description || "";
+
+
+            document.getElementById(
+                "editModal"
+            ).style.display = "flex";
+
+        }
+
+
+        // ===============================
+        // CLOSE EDIT MODAL
+        // ===============================
+
+        function closeEditModal() {
+
+            document.getElementById(
+                "editModal"
+            ).style.display = "none";
+
+        }
+
+
+        // ===============================
+        // UPDATE NOTE
+        // ===============================
+
+        document
+            .getElementById("editForm")
+            .addEventListener(
+                "submit",
+                async function (event) {
+
+                    event.preventDefault();
+
+
+                    const noteId =
+                        document.getElementById(
+                            "editNoteId"
+                        ).value;
+
+
+                    const title =
+                        document.getElementById(
+                            "editTitle"
+                        ).value;
+
+
+                    const subject =
+                        document.getElementById(
+                            "editSubject"
+                        ).value;
+
+
+                    const description =
+                        document.getElementById(
+                            "editDescription"
+                        ).value;
+
+
+                    try {
+
+                        const response =
+                            await fetch(
+                                `/api/notes/${noteId}`,
+                                {
+                                    method: "PUT",
+
+                                    headers: {
+                                        "Content-Type":
+                                            "application/json"
+                                    },
+
+                                    body: JSON.stringify({
+                                        title:
+                                            title,
+
+                                        subject:
+                                            subject,
+
+                                        description:
+                                            description
+                                    })
+                                }
+                            );
+
+
+                        const result =
+                            await response.json();
+
+
+                        if (!response.ok) {
+
+                            alert(
+                                result.message ||
+                                "Failed to update note."
+                            );
+
+                            return;
+
+                        }
+
+
+                        alert(
+                            result.message ||
+                            "Note updated successfully!"
+                        );
+
+
+                        closeEditModal();
+
+
+                        loadNotes();
+
+                    } catch (error) {
+
+                        console.error(
+                            "Update error:",
+                            error
+                        );
+
+
+                        alert(
+                            "Unable to update note. Please make sure the server is running."
+                        );
+
+                    }
+
+                }
+            );
+
+
+        // ===============================
+        // DELETE NOTE
+        // ===============================
+
+        async function deleteNote(noteId) {
+
+            const confirmDelete =
+                confirm(
+                    "Are you sure you want to delete this note?"
+                );
+
+
+            if (!confirmDelete) {
+
+                return;
+
+            }
+
+
+            try {
+
+                const response =
+                    await fetch(
+                        `/api/notes/${noteId}`,
+                        {
+                            method: "DELETE"
+                        }
+                    );
+
+
+                const result =
+                    await response.json();
+
+
+                if (!response.ok) {
+
+                    alert(
+                        result.message ||
+                        "Failed to delete note."
+                    );
+
+                    return;
+
+                }
+
+
+                alert(
+                    result.message ||
+                    "Note deleted successfully!"
+                );
+
+
+                loadNotes();
+
+
+            } catch (error) {
+
+                console.error(
+                    "Delete error:",
+                    error
+                );
+
+
+                alert(
+                    "Unable to delete note. Please make sure the server is running."
+                );
+
+            }
+
+        }
+
+
+        // ===============================
+        // PREVENT HTML INJECTION
+        // ===============================
+
+        function escapeHTML(text) {
+
+            const div =
+                document.createElement("div");
+
+            div.textContent = text;
+
+            return div.innerHTML;
+
+        }
+
+
+        // ===============================
+        // START
+        // ===============================
+
+        loadNotes();
+
+    </script>
+
+</body>
+
+</html>
