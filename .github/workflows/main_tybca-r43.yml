@@ -18,16 +18,31 @@ jobs:
       - name: Download repository
         uses: actions/checkout@v4
 
-      - name: Prepare website package
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.x'
+
+      - name: Prepare deployment package
         run: |
           mkdir deploy
-          cp -r pages css js deploy/
-          cp index.html deploy/index.html
 
-          # Do not include environment secrets
+          cp -r backend deploy/backend
+          cp -r pages css js deploy/
+
+          if [ -d uploads ]; then
+            cp -r uploads deploy/
+          else
+            mkdir deploy/uploads
+          fi
+
+          rm -f deploy/backend/.env
           rm -f deploy/.env
 
-          cd deploy
+          cd deploy/backend
+          npm install --omit=dev
+
+          cd ..
           zip -r ../studyhub.zip .
 
       - name: Login to Azure
@@ -43,3 +58,4 @@ jobs:
           app-name: tybca-r43
           slot-name: Production
           package: studyhub.zip
+          
