@@ -26,9 +26,9 @@ jobs:
       - name: Prepare deployment package
         run: |
           mkdir deploy
-
           cp -r backend deploy/backend
           cp -r pages css js deploy/
+          cp web.config deploy/web.config
 
           if [ -d uploads ]; then
             cp -r uploads deploy/
@@ -41,8 +41,8 @@ jobs:
 
           cd deploy/backend
           npm install --omit=dev
-
           cd ..
+
           zip -r ../studyhub.zip .
 
       - name: Login to Azure
