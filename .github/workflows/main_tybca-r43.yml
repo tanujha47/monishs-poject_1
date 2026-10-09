@@ -55,7 +55,7 @@ jobs:
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
         with:
-          app-name: tybca-r43
+          app-name: tybca-group
           slot-name: Production
           package: studyhub.zip
           
